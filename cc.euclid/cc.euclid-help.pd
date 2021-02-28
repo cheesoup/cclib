@@ -1,0 +1,60 @@
+#N struct 1037-cell float status float x float y;
+#N struct 1037-arm float px float py;
+#N canvas 71 169 1008 709 10;
+#X obj 494 120 s start;
+#X obj 494 100 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
+1;
+#N canvas 886 473 450 300 \$0-output 0;
+#X obj 122 115 cc.output~;
+#X text 129 99 Volume Control;
+#X obj 121 55 inlet~;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X restore 148 476 pd \$0-output;
+#X obj 148 238 cc.euclid;
+#X obj 199 132 nbx 4 15 -1e+037 1e+037 0 0 empty empty tempo 0 -8 0
+10 -257985 -1 -1 0 256;
+#X obj 148 102 r start;
+#N canvas 477 404 450 294 \$0-drums 0;
+#X obj 37 37 inlet;
+#X obj 37 58 sel 1 2;
+#X obj 37 114 cc.ezkick~;
+#X msg 37 79 440 1;
+#X msg 167 79 440 1;
+#X obj 167 114 cc.ezsnare~;
+#X obj 37 249 outlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 1 1 4 0;
+#X connect 2 0 6 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X restore 148 453 pd \$0-drums;
+#X obj 148 157 metro 100;
+#X text 492 149 cc.euclid - Euclidean based rhythm generator;
+#X text 492 169 cc.euclid creates creates a euclidean rhythm sequence
+driven by bangs. The UI controls the amount of events (labelled as
+pulses) within a given amount of steps (the length). The rotate command
+rotates the sequence around the euclidean circle. cc.euclid can trigger
+up to two kinds of events: a regular pulse or an accent. The accent
+is defined with the values on the right side.;
+#X text 493 257 What is output by the sequencer is controlled by value
+command. Because it outputs numbers \, cc.euclid can be used to send
+any sort of value ranging from notes \, to triggers \, to parameters
+for another euclidean or effect., f 60;
+#X text 493 313 The example on the right uses cc.euclid to sequence
+a kick and snare drum. Every output of the regular pulses triggers
+a kick \, while every accented output triggers a snare., f 60;
+#X msg 155 212 pulses 8 \, accents 2 \, pulses value 1 \, accents value
+2;
+#X obj 155 183 loadbang;
+#X connect 1 0 0 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 1;
+#X connect 5 0 7 0;
+#X connect 6 0 2 0;
+#X connect 7 0 3 0;
+#X connect 12 0 3 0;
+#X connect 13 0 12 0;
+#X coords 0 709 1 708 85 60 0;

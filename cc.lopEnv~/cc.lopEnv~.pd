@@ -1,61 +1,80 @@
-#N canvas 49 275 987 586 10;
-#X obj 377 511 lop~ 5;
-#X obj 377 490 sig~ 0;
-#X obj 511 406 f 1000;
-#X obj 556 447 expr 1000 / $f1;
-#X obj 556 427 max 1;
-#X obj 377 195 route 0;
-#X msg 511 386 bang;
-#X obj 437 211 t f f;
-#X obj 437 386 * 0.4;
-#X obj 541 468 f 2;
-#X msg 377 356 bang;
-#X obj 425 448 expr 1000 / $f1;
-#X obj 425 428 max 1;
-#X obj 377 469 f 0;
-#X obj 410 469 f 0;
-#X msg 477 386 bang;
-#X obj 437 344 del;
-#X obj 437 323 swap;
-#X obj 437 365 f 1;
-#X msg 385 328 stop;
-#X obj 517 236 r \$0-attack;
-#X obj 544 386 expr 1000 / $f1;
-#X obj 544 344 max 1;
-#X obj 464 344 r \$0-sustain;
-#X obj 464 365 clip 0 1;
-#X obj 556 406 r \$0-decay;
-#X obj 425 407 r \$0-release;
-#X obj 377 54 inlet;
-#X obj 377 532 outlet~;
-#X obj 517 215 r \$0-hold;
-#X obj 458 294 +;
-#X obj 517 257 t b f;
-#X obj 458 273 f 0;
-#X obj 377 75 route float;
-#X obj 440 101 list split 1;
-#X obj 440 145 t b s;
-#X obj 440 166 f 1;
-#X obj 440 187 s;
-#X obj 105 130 nbx 4 15 1 1e+037 0 0 \$0-attack \$0-attack.in attack
+#N canvas 302 139 987 741 10;
+#X obj 428 581 lop~ 5;
+#X obj 428 560 sig~ 0;
+#X obj 562 466 f 1000;
+#X obj 607 507 expr 1000 / $f1;
+#X obj 607 487 max 1;
+#X obj 428 355 route 0;
+#X msg 562 446 bang;
+#X obj 488 271 t f f;
+#X obj 488 446 * 0.4;
+#X obj 592 528 f 2;
+#X msg 428 416 bang;
+#X obj 476 508 expr 1000 / $f1;
+#X obj 476 488 max 1;
+#X obj 428 539 f 0;
+#X obj 461 529 f 0;
+#X msg 528 446 bang;
+#X obj 488 404 del;
+#X obj 488 383 swap;
+#X obj 488 425 f 1;
+#X msg 436 388 stop;
+#X obj 568 296 r \$0-attack;
+#X obj 595 446 expr 1000 / $f1;
+#X obj 595 404 max 1;
+#X obj 515 404 r \$0-sustain;
+#X obj 515 425 clip 0 1;
+#X obj 607 466 r \$0-decay;
+#X obj 476 467 r \$0-release;
+#X obj 347 75 inlet;
+#X obj 428 602 outlet~;
+#X obj 568 275 r \$0-hold;
+#X obj 509 354 +;
+#X obj 568 317 t b f;
+#X obj 509 333 f 0;
+#X obj 511 96 list split 1;
+#X obj 511 140 t b s;
+#X obj 511 182 s;
+#X obj 105 130 nbx 5 15 1 1e+037 0 0 \$0-attack \$0-attack.in attack
 0 -8 0 8 -257985 -1 -1 10 256;
-#X obj 153 130 nbx 4 15 1 1e+037 0 0 \$0-hold \$0-hold.in hold 0 -8
-0 8 -257985 -1 -1 18 256;
-#X obj 153 160 nbx 4 15 1 1e+037 0 0 \$0-release \$0-release.in release
-0 -8 0 8 -257985 -1 -1 114 256;
-#X obj 105 160 nbx 4 15 1 1e+037 0 0 \$0-decay \$0-decay.in decay 0
--8 0 8 -257985 -1 -1 32 256;
+#X obj 155 130 nbx 5 15 1 1e+037 0 0 \$0-hold \$0-hold.in hold 0 -8
+0 8 -257985 -1 -1 5 256;
+#X obj 255 130 nbx 5 15 1 1e+037 0 0 \$0-release \$0-release.in release
+0 -8 0 8 -257985 -1 -1 100 256;
+#X obj 205 130 nbx 5 15 1 1e+037 0 0 \$0-decay \$0-decay.in decay 0
+-8 0 8 -257985 -1 -1 20 256;
 #X obj 706 94 loadbang;
 #X obj 706 115 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 706 136 f \$0;
+#X obj 108 180 hsl 90 15 0 1 0 0 \$0-s \$0-sn (sustain) 0 8 0 8 -257985
+-1 -1 1780 0;
+#X obj 511 119 makefilename \$0-%s.in;
+#X obj 347 261 makenote 1 200;
+#X obj 255 160 nbx 5 15 1 1e+037 0 0 \$0-length \$0-length.in length
+0 -8 0 8 -257985 -1 -1 200 256;
+#X obj 387 195 r \$0-vel;
+#X obj 428 216 r \$0-length;
+#X obj 392 280 r \$0-glide;
+#X obj 155 160 nbx 5 15 1 1e+037 0 0 \$0-glide \$0-glide.in glide 0
+-8 0 8 -257985 -1 -1 1 256;
+#X obj 208 180 hsl 90 15 0 1 0 0 \$0-v \$0-vn (velocity) 0 8 0 8 -257985
+-1 -1 8900 0;
+#X obj 205 160 nbx 5 15 0 1 0 0 \$0-vel \$0-velocity.in velocity 0
+-8 0 8 -257985 -1 -1 1 256;
+#X obj 105 160 nbx 5 15 0 1 0 0 \$0-sustain \$0-sustain.in sustain
+0 -8 0 8 -257985 -1 -1 0.2 256;
+#X msg 205 200 set \$1;
+#X obj 347 602 outlet~;
+#X obj 347 367 vline~;
+#X obj 347 312 pack f f;
+#X obj 347 388 mtof~;
+#X obj 511 75 inlet;
 #X msg 706 157 \; \$1-attack.in 10 \; \$1-hold.in 5 \; \$1-decay.in
-20 \; \$1-release.in 100 \; \$1-sustain.in 0.2;
-#X obj 108 180 hsl 85 15 0 1 0 0 \$0-sustain \$0-sustain.in sustain:0.297619
-2 8 0 8 -257985 -1 -1 2500 0;
-#X obj 105 210 makefilename sustain:%f;
-#X msg 105 231 label \$1;
-#X obj 440 124 makefilename \$0-%s.in;
+20 \; \$1-release.in 100 \; \$1-sustain.in 0.2 \; \$1-glide.in 0 \;
+\$1-length.in 200 \; \$1-velocity.in 1;
+#X msg 105 200 set \$1;
+#X obj 511 161 list;
 #X connect 0 0 28 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
@@ -90,25 +109,35 @@
 #X connect 24 0 8 1;
 #X connect 25 0 4 0;
 #X connect 26 0 12 0;
-#X connect 27 0 33 0;
+#X connect 27 0 45 0;
 #X connect 29 0 32 0;
 #X connect 30 0 17 1;
 #X connect 31 0 32 0;
 #X connect 31 1 22 0;
 #X connect 31 1 30 1;
 #X connect 32 0 30 0;
-#X connect 33 0 5 0;
-#X connect 33 1 34 0;
-#X connect 34 0 49 0;
-#X connect 34 1 36 1;
-#X connect 35 0 36 0;
-#X connect 35 1 37 1;
-#X connect 36 0 37 0;
-#X connect 42 0 43 0;
-#X connect 43 0 44 0;
-#X connect 44 0 45 0;
-#X connect 46 0 47 0;
-#X connect 47 0 48 0;
-#X connect 48 0 46 0;
-#X connect 49 0 35 0;
-#X coords 0 -1 1 1 100 100 1 100 100;
+#X connect 33 0 44 0;
+#X connect 33 1 62 1;
+#X connect 34 0 62 0;
+#X connect 34 1 35 1;
+#X connect 40 0 41 0;
+#X connect 41 0 42 0;
+#X connect 42 0 60 0;
+#X connect 43 0 53 0;
+#X connect 44 0 34 0;
+#X connect 45 0 57 0;
+#X connect 45 1 5 0;
+#X connect 47 0 45 1;
+#X connect 48 0 45 2;
+#X connect 49 0 57 1;
+#X connect 51 0 52 0;
+#X connect 52 0 54 0;
+#X connect 53 0 61 0;
+#X connect 54 0 51 0;
+#X connect 56 0 58 0;
+#X connect 57 0 56 0;
+#X connect 58 0 55 0;
+#X connect 59 0 33 0;
+#X connect 61 0 43 0;
+#X connect 62 0 35 0;
+#X coords 0 -1 1 1 210 100 1 100 100;

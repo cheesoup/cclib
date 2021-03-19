@@ -1,60 +1,76 @@
-#N struct 1037-cell float status float x float y;
-#N struct 1037-arm float px float py;
-#N canvas 71 169 1008 709 10;
-#X obj 494 120 s start;
-#X obj 494 100 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
-1;
-#N canvas 886 473 450 300 \$0-output 0;
+#N struct 1558-cell float status float x float y;
+#N struct 1558-arm float px float py;
+#N canvas 422 142 1008 709 10;
+#X obj 148 218 cc.euclid;
+#X obj 148 102 r start;
+#X obj 155 163 loadbang;
+#N canvas 358 142 600 574 drums 0;
+#X obj 37 37 inlet;
+#X obj 37 379 outlet~;
+#X obj 99 37 inlet;
+#X obj 37 124 cc.synths~/ezdrummer;
+#X msg 37 79 60 1;
+#X msg 99 79 60 1;
+#X connect 0 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 1 0;
+#X connect 3 1 1 0;
+#X connect 4 0 3 0;
+#X connect 5 0 3 1;
+#X restore 148 473 pd drums;
+#N canvas 886 473 450 300 output 0;
 #X obj 122 115 cc.output~;
 #X text 129 99 Volume Control;
 #X obj 121 55 inlet~;
 #X connect 2 0 0 0;
 #X connect 2 0 0 1;
-#X restore 148 476 pd \$0-output;
-#X obj 148 238 cc.euclid;
-#X obj 199 132 nbx 4 15 -1e+037 1e+037 0 0 empty empty tempo 0 -8 0
-10 -257985 -1 -1 0 256;
-#X obj 148 102 r start;
-#N canvas 477 404 450 294 \$0-drums 0;
-#X obj 37 37 inlet;
-#X obj 37 58 sel 1 2;
-#X obj 37 114 cc.ezkick~;
-#X msg 37 79 440 1;
-#X msg 167 79 440 1;
-#X obj 167 114 cc.ezsnare~;
-#X obj 37 249 outlet~;
-#X connect 0 0 1 0;
-#X connect 1 0 3 0;
-#X connect 1 1 4 0;
-#X connect 2 0 6 0;
-#X connect 3 0 2 0;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X restore 148 453 pd \$0-drums;
-#X obj 148 157 metro 100;
-#X text 492 149 cc.euclid - Euclidean based rhythm generator;
-#X text 492 169 cc.euclid creates creates a euclidean rhythm sequence
-driven by bangs. The UI controls the amount of events (labelled as
-pulses) within a given amount of steps (the length). The rotate command
-rotates the sequence around the euclidean circle. cc.euclid can trigger
-up to two kinds of events: a regular pulse or an accent. The accent
-is defined with the values on the right side.;
-#X text 493 257 What is output by the sequencer is controlled by value
-command. Because it outputs numbers \, cc.euclid can be used to send
-any sort of value ranging from notes \, to triggers \, to parameters
-for another euclidean or effect., f 60;
-#X text 493 313 The example on the right uses cc.euclid to sequence
-a kick and snare drum. Every output of the regular pulses triggers
-a kick \, while every accented output triggers a snare., f 60;
-#X msg 155 212 pulses 8 \, accents 2 \, pulses value 1 \, accents value
-2;
-#X obj 155 183 loadbang;
-#X connect 1 0 0 0;
-#X connect 3 0 6 0;
-#X connect 4 0 7 1;
+#X restore 148 496 pd output;
+#X obj 568 98 nbx 4 15 -1e+037 1e+037 0 0 empty tempo.in empty 0 -8
+0 10 -257985 -1 -1 150 256;
+#X obj 199 102 r tempo;
+#X obj 568 118 s tempo;
+#X obj 368 218 loadbang;
+#X msg 368 239 \; tempo.in 150;
+#X obj 148 433 bng 15 250 50 0 empty empty pulse 17 7 0 10 -257985
+-1 -1;
+#X obj 351 433 bng 15 250 50 0 empty empty accent 17 7 0 10 -257985
+-1 -1;
+#X text 364 364 Regular pulses come out as bangs on the left. Accents
+come out as bangs on the right., f 19;
+#X obj 512 118 s start;
+#X obj 512 98 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
+1;
+#X text 510 147 [cc.euclid] - Euclidean based rhythm generator, f
+66;
+#X text 510 248 The ‘pulses’ parameter controls the amount events
+that are to happen within a given amount of steps. The total amount
+of steps is controlled by the ‘length’ parameter. cc.euclid can
+trigger up to two kinds of events: a regular pulse or an accent. The
+accent is defined by the parameters on the right side. The rotate parameter
+rotates the events (or accents) around the euclidean circle., f 66
+;
+#X msg 155 192 pulses 8 \, accents 2;
+#X text 510 337 The inlet can take either bangs or floats. When the
+object receives a float \, it will jump and play the specified step.
+Bangs simply incrementthe current counter sequence by one., f 66;
+#X obj 148 137 metro 150;
+#X text 510 170 cc.euclid creates a euclidean rhythm sequence driven
+by bangs. Basically \, it fits a user defined amount of events into
+a user defined amount of steps as equally as possibly. Values are rounded
+to the nearest step when they land between two. This creates interesting
+rhythmic variations due to the imprecision of the quantizer., f 66
+;
+#X connect 0 0 10 0;
+#X connect 0 1 11 0;
+#X connect 1 0 19 0;
+#X connect 2 0 17 0;
+#X connect 3 0 4 0;
 #X connect 5 0 7 0;
-#X connect 6 0 2 0;
-#X connect 7 0 3 0;
-#X connect 12 0 3 0;
-#X connect 13 0 12 0;
+#X connect 6 0 19 1;
+#X connect 8 0 9 0;
+#X connect 10 0 3 0;
+#X connect 11 0 3 1;
+#X connect 14 0 13 0;
+#X connect 17 0 0 0;
+#X connect 19 0 0 0;
 #X coords 0 709 1 708 85 60 0;

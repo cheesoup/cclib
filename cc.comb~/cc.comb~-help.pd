@@ -1,0 +1,257 @@
+#N struct 1093-key float status float root float id float x float y
+;
+#N canvas 482 75 1008 709 10;
+#N canvas 886 473 450 300 \$0-output 0;
+#X obj 122 115 cc.output~;
+#X text 129 99 Volume Control;
+#X obj 121 55 inlet~;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X restore 100 557 pd \$0-output;
+#X obj 512 118 s start;
+#X obj 512 98 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
+1;
+#X obj 100 104 r start;
+#X obj 568 98 nbx 4 15 -1e+037 1e+037 0 0 empty tempo.in empty 0 -8
+0 10 -257985 -1 -1 200 256;
+#N canvas 0 50 450 300 scale 0;
+#X msg 107 79 intervals 3 2 2 3 2;
+#X obj 107 113 cc.12tet scale;
+#X msg 237 79 scale 0 2 4 5 7 9 11;
+#X connect 0 0 1 0;
+#X connect 2 0 1 0;
+#X restore 165 125 pd scale;
+#X obj 359 106 loadbang;
+#N canvas 568 213 450 482 sequence 0;
+#X obj 37 37 inlet;
+#X obj 37 393 *~;
+#X obj 37 417 outlet~;
+#N canvas 428 227 936 599 vv 0;
+#X obj 156 161 inlet~;
+#X obj 156 250 *~ 0;
+#X obj 156 269 phasor~;
+#X obj 156 288 *~ 4;
+#X obj 156 307 -~ 2;
+#X obj 156 326 abs~;
+#X obj 156 345 -~ 1;
+#X obj 156 364 outlet~;
+#X obj 177 208 samplerate~;
+#X obj 177 229 / 2;
+#X obj 177 187 r \$0-init;
+#X text 279 157 based on one of acriel's random modulation algorithms
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 1 1;
+#X connect 10 0 8 0;
+#X restore 86 259 pd vv;
+#X obj 85 234 noise~;
+#X obj 119 376 vline~;
+#X obj 37 234 t f b;
+#X obj 37 325 cc.waves~/dphasor;
+#X obj 37 349 cc.waves~/rTri 0.5;
+#X msg 119 294 1 5 \, 0.25 20 5 \, 0 50 25;
+#X obj 37 108 cc.12tet/sequence scale;
+#X obj 37 213 mtof;
+#X obj 79 37 r sequences;
+#X obj 159 37 r init;
+#X msg 240 252 random one;
+#X obj 240 225 sel 0;
+#X msg 159 58 floor 72 \, length 4;
+#X connect 0 0 10 0;
+#X connect 1 0 2 0;
+#X connect 3 0 7 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 7 0;
+#X connect 6 1 9 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 9 0 5 0;
+#X connect 10 0 11 0;
+#X connect 10 1 15 0;
+#X connect 11 0 6 0;
+#X connect 12 0 10 0;
+#X connect 13 0 16 0;
+#X connect 14 0 10 0;
+#X connect 15 0 14 0;
+#X connect 16 0 10 0;
+#X restore 100 258 pd sequence;
+#X obj 100 196 random 2;
+#X obj 100 217 sel 1;
+#X obj 359 127 bng 15 250 50 0 empty empty reset 16 7 0 10 -257985
+-1 -1;
+#X obj 156 104 r tempo;
+#X obj 568 118 s tempo;
+#X obj 100 238 bng 15 250 50 0 empty empty empty 17 7 0 10 -257985
+-1 -1;
+#X obj 180 196 random 2;
+#X obj 180 217 sel 1;
+#N canvas 568 213 450 482 sequence 0;
+#X obj 37 37 inlet;
+#X obj 37 393 *~;
+#X obj 37 417 outlet~;
+#N canvas 428 227 936 599 vv 0;
+#X obj 156 161 inlet~;
+#X obj 156 250 *~ 0;
+#X obj 156 269 phasor~;
+#X obj 156 288 *~ 4;
+#X obj 156 307 -~ 2;
+#X obj 156 326 abs~;
+#X obj 156 345 -~ 1;
+#X obj 156 364 outlet~;
+#X obj 177 208 samplerate~;
+#X obj 177 229 / 2;
+#X obj 177 187 r \$0-init;
+#X text 279 157 based on one of acriel's random modulation algorithms
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 1 1;
+#X connect 10 0 8 0;
+#X restore 86 259 pd vv;
+#X obj 85 234 noise~;
+#X obj 119 376 vline~;
+#X obj 37 234 t f b;
+#X obj 37 325 cc.waves~/dphasor;
+#X obj 37 349 cc.waves~/rTri 0.5;
+#X obj 37 108 cc.12tet/sequence scale;
+#X obj 37 213 mtof;
+#X obj 79 37 r sequences;
+#X obj 159 37 r init;
+#X msg 159 58 floor 60 \, length 4;
+#X msg 119 294 1 5 \, 0.25 20 50 \, 0 50 75;
+#X connect 0 0 9 0;
+#X connect 1 0 2 0;
+#X connect 3 0 7 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 7 0;
+#X connect 6 1 14 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 9 0 10 0;
+#X connect 10 0 6 0;
+#X connect 11 0 9 0;
+#X connect 12 0 13 0;
+#X connect 13 0 9 0;
+#X connect 14 0 5 0;
+#X restore 180 258 pd sequence;
+#X obj 180 238 bng 15 250 50 0 empty empty empty 17 7 0 10 -257985
+-1 -1;
+#X obj 100 146 bng 15 250 50 0 empty empty empty 17 7 0 10 -257985
+-1 -1;
+#X obj 172 387 r init;
+#X obj 100 125 metro 200;
+#X msg 359 147 \; tempo.in 200 \; init bang \;;
+#X text 237 194 50% chance to do something every bang., f 16;
+#X msg 172 408 time 300;
+#X text 315 447 Long delay times with higher feedback levels will create
+an echoing effect. Lower delay times will merge the echo with actual
+sound source to create more metallic sounds., f 23;
+#X obj 100 441 cc.comb~ del 5000;
+#N canvas 0 50 450 300 randomize 0;
+#X obj 37 109 + 1;
+#X obj 37 214 outlet;
+#X obj 37 130 / 8;
+#X obj 37 151 * 400;
+#X obj 97 109 + 1;
+#X obj 97 130 / 8;
+#X obj 97 151 * 400;
+#X obj 142 114 r tempo;
+#X obj 142 135 * 2;
+#X obj 197 115 sel 0 1;
+#X obj 197 94 random 2;
+#X msg 197 136 -0.75;
+#X msg 216 156 0.75;
+#X obj 37 172 pack f f f;
+#X obj 37 58 t b b b;
+#X msg 37 193 time \$1 \, inertia \$2 \, feedback \$3;
+#X obj 37 88 random 16;
+#X obj 37 37 inlet;
+#X obj 97 88 random 16;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 13 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 13 1;
+#X connect 7 0 8 0;
+#X connect 8 0 6 1;
+#X connect 8 0 3 1;
+#X connect 9 0 11 0;
+#X connect 9 1 12 0;
+#X connect 10 0 9 0;
+#X connect 11 0 13 2;
+#X connect 12 0 13 2;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 14 1 18 0;
+#X connect 14 2 10 0;
+#X connect 15 0 1 0;
+#X connect 16 0 0 0;
+#X connect 17 0 14 0;
+#X connect 18 0 4 0;
+#X restore 180 319 pd randomize;
+#X text 510 170 cc.comb~ is more or less a basic comb filter/feedback
+delay object. It takes two arguments to initialize properly. The first
+argument defines the name of the array. This is so that the array can
+be read by other objects should the user choose to want to. The second
+argument defines the maximum length of the delay line (in milliseconds).
+, f 66;
+#X text 510 337 The delay’s feedback is not limited in any sort of
+way (besides a basic low-pass and high-pass filter). Feedback values
+of -1 or 1 may cause the delay line to self-oscillate if the user is
+not filtering out enough of the signal., f 66;
+#X obj 624 98 bng 15 250 50 0 empty empty empty 16 7 0 10 -257985 -1
+-1;
+#X obj 624 118 s randomize;
+#X text 510 248 The time parameter determines the amount of time to
+delay the incoming signal by. Playing with the time parameter in real-time
+creates a sort of tape slowdown or speed up effect. The feedback parameter
+determines the amount of the delayed signal will be fed back into the
+effect. The ‘wet’ parameter determines the amount of the current
+(not delayed) signal is present within the output. The unlabeled button
+on the bottom right is clears the delay line., f 66;
+#X obj 180 299 bng 15 250 50 0 empty randomize empty 17 7 0 10 -257985
+-1 -1;
+#X text 260 296 Changing time values during playback creates a sort
+of fast-forward/rewind distortion. This is essentially how delay based
+pitch shifting works., f 32;
+#X text 510 147 [cc.comb~] - Basic Comb Delay, f 66;
+#X connect 2 0 1 0;
+#X connect 3 0 20 0;
+#X connect 4 0 12 0;
+#X connect 6 0 10 0;
+#X connect 7 0 25 0;
+#X connect 8 0 9 0;
+#X connect 9 0 13 0;
+#X connect 10 0 21 0;
+#X connect 11 0 20 1;
+#X connect 13 0 7 0;
+#X connect 14 0 15 0;
+#X connect 15 0 17 0;
+#X connect 16 0 25 0;
+#X connect 17 0 16 0;
+#X connect 18 0 8 0;
+#X connect 18 0 14 0;
+#X connect 19 0 23 0;
+#X connect 20 0 18 0;
+#X connect 23 0 25 0;
+#X connect 25 0 0 0;
+#X connect 26 0 25 0;
+#X connect 29 0 30 0;
+#X connect 32 0 26 0;
+#X coords 0 709 1 708 85 60 0;

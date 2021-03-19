@@ -1,0 +1,230 @@
+#N struct 1042-key float status float root float id float x float y
+;
+#N canvas 256 170 1008 709 10;
+#N canvas 886 473 450 300 \$0-output 0;
+#X obj 122 115 cc.output~;
+#X text 129 99 Volume Control;
+#X obj 121 55 inlet~;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X restore 100 570 pd \$0-output;
+#X obj 512 118 s start;
+#X obj 512 98 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
+1;
+#X obj 100 146 cc.clock;
+#X obj 100 256 nbx 4 15 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -257985 -1 -1 0 256;
+#X obj 180 256 nbx 4 15 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -257985 -1 -1 0 256;
+#X obj 260 256 nbx 4 15 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -257985 -1 -1 0 256;
+#X obj 100 276 bng 15 250 50 0 empty empty sub-beat 17 7 0 10 -257985
+-1 -1;
+#X obj 180 276 bng 15 250 50 0 empty empty beat 17 7 0 10 -257985 -1
+-1;
+#X obj 260 276 bng 15 250 50 0 empty empty bar 17 7 0 10 -257985 -1
+-1;
+#X obj 100 104 r start;
+#X msg 100 125 play \$1;
+#X msg 156 125 bpm \$1;
+#X obj 156 104 r bpm;
+#X obj 568 118 s bpm;
+#X obj 568 98 nbx 4 15 -1e+037 1e+037 0 0 empty bpm.in empty 0 -8 0
+10 -257985 -1 -1 120 256;
+#N canvas 0 50 450 300 scale 0;
+#X msg 107 79 intervals 3 2 2 3 2;
+#X obj 107 113 cc.12tet scale;
+#X msg 237 79 scale 0 2 4 5 7 9 11;
+#X connect 0 0 1 0;
+#X connect 2 0 1 0;
+#X restore 200 104 pd scale;
+#X msg 260 338 random one;
+#X obj 359 106 loadbang;
+#X msg 359 147 \; bpm.in 120 \; init bang \;;
+#N canvas 568 213 450 482 sequence 1;
+#X obj 37 37 inlet;
+#X obj 37 393 *~;
+#X obj 37 417 outlet~;
+#N canvas 428 227 936 599 vv 0;
+#X obj 156 161 inlet~;
+#X obj 156 250 *~ 0;
+#X obj 156 269 phasor~;
+#X obj 156 288 *~ 4;
+#X obj 156 307 -~ 2;
+#X obj 156 326 abs~;
+#X obj 156 345 -~ 1;
+#X obj 156 364 outlet~;
+#X obj 177 208 samplerate~;
+#X obj 177 229 / 2;
+#X obj 177 187 r \$0-init;
+#X text 279 157 based on one of acriel's random modulation algorithms
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 1 1;
+#X connect 10 0 8 0;
+#X restore 86 259 pd vv;
+#X obj 85 234 noise~;
+#X obj 119 376 vline~;
+#X obj 37 234 t f b;
+#X obj 37 325 cc.waves~/dphasor;
+#X obj 37 349 cc.waves~/rTri 0.5;
+#X obj 37 108 cc.12tet/sequence scale;
+#X obj 37 213 mtof;
+#X obj 79 37 r sequences;
+#X obj 159 37 r init;
+#X msg 119 294 1 50 \, 0.25 20 50 \, 0 200 75;
+#X msg 159 58 floor 72 \, length 4;
+#X connect 0 0 9 0;
+#X connect 1 0 2 0;
+#X connect 3 0 7 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 7 0;
+#X connect 6 1 13 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 9 0 10 0;
+#X connect 10 0 6 0;
+#X connect 11 0 9 0;
+#X connect 12 0 14 0;
+#X connect 13 0 5 0;
+#X connect 14 0 9 0;
+#X restore 180 358 pd sequence;
+#N canvas 568 213 450 482 sequence 0;
+#X obj 37 37 inlet;
+#X obj 37 393 *~;
+#X obj 37 417 outlet~;
+#N canvas 428 227 936 599 vv 0;
+#X obj 156 161 inlet~;
+#X obj 156 250 *~ 0;
+#X obj 156 269 phasor~;
+#X obj 156 288 *~ 4;
+#X obj 156 307 -~ 2;
+#X obj 156 326 abs~;
+#X obj 156 345 -~ 1;
+#X obj 156 364 outlet~;
+#X obj 177 208 samplerate~;
+#X obj 177 229 / 2;
+#X obj 177 187 r \$0-init;
+#X text 279 157 based on one of acriel's random modulation algorithms
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 1 1;
+#X connect 10 0 8 0;
+#X restore 86 259 pd vv;
+#X obj 85 234 noise~;
+#X obj 119 376 vline~;
+#X obj 37 234 t f b;
+#X obj 37 325 cc.waves~/dphasor;
+#X obj 37 349 cc.waves~/rTri 0.5;
+#X msg 119 294 1 5 \, 0.25 20 5 \, 0 50 25;
+#X obj 37 108 cc.12tet/sequence scale;
+#X obj 37 213 mtof;
+#X obj 79 37 r sequences;
+#X obj 159 37 r init;
+#X msg 159 58 floor 60 \, length 4;
+#X connect 0 0 10 0;
+#X connect 1 0 2 0;
+#X connect 3 0 7 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 7 0;
+#X connect 6 1 9 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 9 0 5 0;
+#X connect 10 0 11 0;
+#X connect 11 0 6 0;
+#X connect 12 0 10 0;
+#X connect 13 0 14 0;
+#X connect 14 0 10 0;
+#X restore 100 408 pd sequence;
+#X obj 100 296 random 2;
+#X obj 100 317 sel 1;
+#X obj 260 360 s sequences;
+#X obj 345 256 nbx 4 15 -1e+037 1e+037 0 0 empty empty time(ms) 48
+8 0 10 -257985 -1 -1 500 256;
+#X obj 359 127 bng 15 250 50 0 empty empty reset 16 7 0 10 -257985
+-1 -1;
+#X obj 345 276 s time;
+#X obj 213 379 r time;
+#X msg 213 421 time \$1 \, feedback 0.75;
+#X obj 213 400 * 1.5;
+#X text 510 170 cc.clock generates a message rate clock which the user
+can use to trigger events/sounds/etc. The tempo of the clock can either
+be set with the 'bpm' or 'ms' parameter. The value of 'ms' parameter
+is output to the right most outlet in order whenever the tempo is changed.
+This value can be used to syncronize, f 66;
+#X text 109 339 50% chance to do something every 1/4 beat., f 10;
+#X text 337 336 Randomize a note within both sequence after every bar.
+, f 21;
+#X text 251 401 Echo the signal after 1.5 beats.;
+#X text 510 237 The clock itself outputs four counters simultaneously
+when turned on: a sub-beat \, a beat \, a bar \, and a raw time value.
+The sub-beats are subdivisions of the main beat. The amount of subdivisions
+without a beat can be defined with the subdivide parameter. The beats
+\, much like sub-beats \, are divisions of a bar. The amount of beats
+per bar can defined with the ‘length’ parameter. The bar count
+\, unlike the other two \, is a limitless counter which will continue
+to count up towards infinity until the user pulls its value back down.
+The raw time value outputs the length of time (in milliseconds) since
+the user began clock. It updates every sub-beat., f 66;
+#X text 510 370 The event manager is a feature not demonstrated in
+example to the left. When the user clicks the events button \, a text
+window pops-up. Here the user can set presets for a patch \, as well
+as set messages to send on a particular beat or bar. The user can then
+save and load this text file for easier parameter management. The syntax
+is as follows:, f 66;
+#X obj 179 455 cc.comb~ del 5000;
+#X text 229 557 A comb filter is used here to demonstrate the time
+syncing functionality., f 26;
+#X text 510 147 [cc.clock] - Master Clock & Event Manager, f 66;
+#X text 510 448 preset \; parameter0 40 \; parameter1 40 \; paramter2
+5 \; beat.0 \; parameter0 20 \; parameter1 20 \; beat.1 \; paramter0
+30 \; bar.2 \; parameter2 5 \; Where parameters are send and receive
+names \, and the numbers are the values you want to send. Each step
+must also be defined by a step name such as 'preset' \, 'beat.#' \,
+and 'bar.#'., f 66;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 3 1 5 0;
+#X connect 3 2 6 0;
+#X connect 3 4 25 0;
+#X connect 4 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 7 0 22 0;
+#X connect 8 0 20 0;
+#X connect 9 0 17 0;
+#X connect 10 0 11 0;
+#X connect 11 0 3 0;
+#X connect 12 0 3 0;
+#X connect 13 0 12 0;
+#X connect 15 0 14 0;
+#X connect 17 0 24 0;
+#X connect 18 0 26 0;
+#X connect 20 0 37 0;
+#X connect 21 0 0 0;
+#X connect 22 0 23 0;
+#X connect 23 0 21 0;
+#X connect 25 0 27 0;
+#X connect 26 0 19 0;
+#X connect 28 0 30 0;
+#X connect 29 0 37 0;
+#X connect 30 0 29 0;
+#X connect 37 0 0 0;
+#X coords 0 709 1 708 85 60 0;

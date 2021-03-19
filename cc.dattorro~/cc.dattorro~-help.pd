@@ -1,0 +1,178 @@
+#N struct 1373-key float status float root float id float x float y
+;
+#N canvas 254 251 1008 709 10;
+#N canvas 886 473 450 300 \$0-output 0;
+#X obj 122 115 cc.output~;
+#X text 129 99 Volume Control;
+#X obj 121 55 inlet~;
+#X obj 324 55 inlet~;
+#X connect 2 0 0 0;
+#X connect 3 0 0 1;
+#X restore 150 487 pd \$0-output;
+#X obj 150 136 r start;
+#X obj 201 112 nbx 4 15 -1e+037 1e+037 0 0 empty empty bpm_(16ths)
+0 -8 0 10 -257985 -1 -1 120 256;
+#X obj 305 218 nbx 4 15 -1e+037 1e+037 0 0 empty empty MIDI_Value 0
+-8 0 10 -257985 -1 -1 0 256;
+#N canvas 487 399 655 285 notes 0;
+#X obj 39 29 inlet;
+#X obj 242 192 sel 0;
+#X msg 242 213 random one;
+#X obj 39 193 outlet;
+#X obj 194 50 loadbang;
+#X msg 194 71 floor 64;
+#X obj 522 192 sel 0;
+#X msg 522 213 random one;
+#X obj 319 193 outlet;
+#X obj 474 50 loadbang;
+#X msg 474 71 floor 64;
+#X obj 319 45 random 2;
+#X obj 319 66 sel 1;
+#X obj 39 45 random 2;
+#X obj 39 66 sel 1;
+#X obj 39 87 cc.12tet/sequence scale;
+#X obj 319 87 cc.12tet/sequence scale;
+#X connect 0 0 11 0;
+#X connect 0 0 13 0;
+#X connect 1 0 2 0;
+#X connect 2 0 15 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 7 0;
+#X connect 7 0 16 0;
+#X connect 9 0 10 0;
+#X connect 10 0 16 0;
+#X connect 11 0 12 0;
+#X connect 12 0 16 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 3 0;
+#X connect 15 1 1 0;
+#X connect 16 0 8 0;
+#X connect 16 1 6 0;
+#X restore 150 202 pd notes;
+#N canvas 0 50 450 300 \$0-scale 0;
+#X msg 111 87 intervals 3 2 2 3 2;
+#X obj 111 65 loadbang;
+#X obj 111 108 cc.12tet scale;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X restore 317 175 pd \$0-scale;
+#X obj 303 75 loadbang;
+#X msg 303 96 120;
+#N canvas 756 413 547 300 \$0-instruments 0;
+#X obj 37 37 inlet;
+#X obj 37 221 *~;
+#X obj 37 245 outlet~;
+#N canvas 428 227 936 599 vv 0;
+#X obj 156 161 inlet~;
+#X obj 156 250 *~ 0;
+#X obj 156 269 phasor~;
+#X obj 156 288 *~ 4;
+#X obj 156 307 -~ 2;
+#X obj 156 326 abs~;
+#X obj 156 345 -~ 1;
+#X obj 156 364 outlet~;
+#X obj 177 208 samplerate~;
+#X obj 177 229 / 2;
+#X obj 177 187 r \$0-init;
+#X text 279 157 based on one of acriel's random modulation algorithms
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 1 1;
+#X connect 10 0 8 0;
+#X restore 87 78 pd vv;
+#X obj 86 53 noise~;
+#X obj 119 204 vline~;
+#X obj 37 79 t f b;
+#X msg 119 122 1 5 \, 0.25 20 5 \, 0 100 25;
+#X obj 37 58 mtof;
+#X obj 247 37 inlet;
+#X obj 247 221 *~;
+#X obj 247 245 outlet~;
+#X obj 329 204 vline~;
+#X obj 247 79 t f b;
+#X obj 247 58 mtof;
+#X msg 329 122 1 5 \, 0.25 20 5 \, 0 100 25;
+#X obj 37 153 cc.waves~/dphasor;
+#X obj 247 153 cc.waves~/dphasor;
+#X obj 37 177 cc.waves~/tsSaw;
+#X obj 247 177 cc.waves~/tspulse;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 3 0 16 1;
+#X connect 3 0 17 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 16 0;
+#X connect 6 0 18 1;
+#X connect 6 1 7 0;
+#X connect 7 0 5 0;
+#X connect 8 0 6 0;
+#X connect 9 0 14 0;
+#X connect 10 0 11 0;
+#X connect 12 0 10 1;
+#X connect 13 0 17 0;
+#X connect 13 0 19 1;
+#X connect 13 1 15 0;
+#X connect 14 0 13 0;
+#X connect 15 0 12 0;
+#X connect 16 0 18 0;
+#X connect 17 0 19 0;
+#X connect 18 0 1 0;
+#X connect 19 0 10 0;
+#X restore 150 231 pd \$0-instruments;
+#X obj 150 179 metro 200;
+#X obj 201 157 /;
+#X obj 201 136 swap 15000;
+#X obj 150 262 cc.dattorro~;
+#X obj 512 118 s start;
+#X obj 512 98 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
+1;
+#X text 510 147 [cc.dattorro~] - Modified Dattorro Plate Reverb, f
+66;
+#X text 510 170 This reverb is based on an algorithm published by Jon
+Dattoro. It's based around a stereo feedback loop with embedded allpass
+filters. More information about the algorithm can be found here: https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf
+, f 66;
+#X text 510 226 My implementation replaces the initial original early
+reflection design with Miller Puckette's method of creating early reflections
+(as taken from rev3~). To add further complexity \, each early reflector
+also contains an allpass filter to diffuse the signal prior to reaching
+the reverb loop., f 66;
+#X text 510 293 Feedback is limited by a tanh~ function which creates
+further colourization by soft clipping the signal to be within stable
+range. When the ‘decay’ paramter is at about 0.85 \, the reverb
+self oscillates into a loud wall of feedback noise which can be shaped
+by the ‘damp’ and ‘shimmer’ parameters. This decision was based
+on Tom Erbe's design for the Make Noise 'ErbeVerb'., f 66;
+#X text 367 265 Try playing with some of the paramters and see what
+happens!!, f 15;
+#X text 510 371 The ‘pre-delay’ controls how much the signal is
+delayed by before by sent through the effect. The bandwidth parameter
+attenuates higher frequencies prior to being sent through effect.,
+f 66;
+#X connect 1 0 9 0;
+#X connect 2 0 11 0;
+#X connect 4 0 8 0;
+#X connect 4 0 3 0;
+#X connect 4 1 8 1;
+#X connect 6 0 7 0;
+#X connect 7 0 2 0;
+#X connect 8 0 12 0;
+#X connect 8 1 12 1;
+#X connect 9 0 4 0;
+#X connect 10 0 9 1;
+#X connect 11 0 10 0;
+#X connect 11 1 10 1;
+#X connect 12 0 0 0;
+#X connect 12 1 0 1;
+#X connect 14 0 13 0;
+#X coords 0 709 1 708 85 60 0;

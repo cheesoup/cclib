@@ -1,0 +1,108 @@
+#N canvas 439 151 604 654 10;
+#X obj 261 375 +~;
+#X obj 181 502 outlet~;
+#X obj 181 333 r \$0-time;
+#X obj 181 354 sig~ 0;
+#X obj 181 375 lop~ 50;
+#X obj 105 458 *~;
+#X obj 105 354 sig~ 0;
+#X obj 105 375 lop~ 50;
+#X msg 105 78 range 1 \$1;
+#X obj 262 333 inlet~ fwd;
+#X obj 105 313 r \$0-feedback;
+#X obj 260 160 nbx 5 15 0 1 0 0 \$0-wet.n \$0-wet.n.in empty 48 7 0
+8 -257985 -1 -1 1 256;
+#X obj 108 160 hsl 150 15 0 1 0 0 \$0-dry \$0-dry.in dry 2 8 0 8 -257985
+-1 -1 14900 0;
+#X obj 105 180 nbx 5 15 1 1e+037 0 0 \$0-inertia \$0-inertia.in inertia
+48 8 0 8 -257985 -1 -1 20 256;
+#X obj 220 259 r \$0-inertia;
+#X obj 220 280 swap 1000;
+#X obj 220 301 /;
+#X msg 320 175 set \$1;
+#X obj 260 140 nbx 5 15 -1 1 0 0 \$0-wet.n \$0-wet.n.in empty 48 7
+0 8 -257985 -1 -1 0.75 256;
+#X obj 108 140 hsl 150 15 -1 1 0 0 \$0-feedback \$0-feedback.in feedback
+2 8 0 8 -257985 -1 -1 13037 0;
+#X msg 320 155 set \$1;
+#X obj 260 120 nbx 5 15 1 5000 0 0 \$0-time.n \$0-time.n.in empty 48
+7 0 8 -257985 -1 -1 300 256;
+#X obj 108 120 hsl 150 15 1 5000 0 0 \$0-time \$0-time.in time 2 8
+0 8 -257985 -1 -1 891 0;
+#X msg 320 135 set \$1;
+#X obj 408 349 list split 1;
+#X obj 408 370 makefilename \$0-%s.in;
+#X obj 408 391 t b s;
+#X obj 408 412 list;
+#X obj 408 433 s;
+#X obj 379 99 loadbang;
+#X obj 379 120 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 379 140 t b b;
+#X obj 379 161 f \$0;
+#X obj 290 179 bng 15 250 50 0 \$0-clear \$0-clear.in empty 17 8 0
+8 -257985 -1 -1;
+#X obj 286 354 r \$0-clear;
+#X msg 286 375 clear;
+#X obj 105 35 r \$0-init;
+#X obj 195 180 nbx 5 15 1 1e+037 0 0 \$0-lopass \$0-lopass.in lopass
+48 8 0 8 -257985 -1 -1 10000 256;
+#X obj 172 533 r \$0-lowpass;
+#X obj 105 549 lop~ 10000;
+#X obj 105 479 hip~ 100;
+#X obj 181 441 vd~ \$1 \$2;
+#X obj 261 441 delwrite~ \$1 \$2;
+#X msg 379 201 \; \$1-time.in \$2 \; \$1-feedback.in 0.75 \; \$1-dry.in
+1 \; \$1-lopass.in 10000 \; \$1-inertia.in 20 \; \$1-init bang;
+#X obj 105 56 f \$2;
+#X obj 424 161 f \$2;
+#X obj 379 182 pack f f;
+#X connect 0 0 42 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 41 0;
+#X connect 5 0 40 0;
+#X connect 6 0 7 0;
+#X connect 7 0 5 0;
+#X connect 8 0 21 0;
+#X connect 8 0 22 0;
+#X connect 9 0 0 0;
+#X connect 9 1 24 0;
+#X connect 10 0 6 0;
+#X connect 11 0 12 0;
+#X connect 12 0 17 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 16 1;
+#X connect 16 0 4 1;
+#X connect 16 0 7 1;
+#X connect 17 0 11 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 18 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 23 0 21 0;
+#X connect 24 0 25 0;
+#X connect 24 1 27 1;
+#X connect 25 0 26 0;
+#X connect 26 0 27 0;
+#X connect 26 1 28 1;
+#X connect 27 0 28 0;
+#X connect 29 0 30 0;
+#X connect 30 0 31 0;
+#X connect 31 0 32 0;
+#X connect 31 1 45 0;
+#X connect 32 0 46 0;
+#X connect 34 0 35 0;
+#X connect 35 0 42 0;
+#X connect 36 0 44 0;
+#X connect 38 0 39 1;
+#X connect 39 0 0 1;
+#X connect 40 0 39 0;
+#X connect 41 0 5 1;
+#X connect 41 0 1 0;
+#X connect 44 0 8 0;
+#X connect 45 0 46 1;
+#X connect 46 0 43 0;
+#X coords 0 -1 1 1 210 100 1 100 100;

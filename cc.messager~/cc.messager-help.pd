@@ -1,0 +1,163 @@
+#N struct 1524-key float status float root float id float x float y
+;
+#N canvas 246 162 1008 709 10;
+#X obj 568 98 nbx 4 15 -1e+037 1e+037 0 0 empty tempo.in empty 0 -8
+0 10 -257985 -1 -1 150 256;
+#X obj 568 118 s tempo;
+#X obj 512 118 s start;
+#X obj 512 98 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 1
+1;
+#X obj 150 96 r start;
+#X obj 305 178 nbx 4 15 -1e+037 1e+037 0 0 empty empty MIDI_Value 0
+-8 0 10 -257985 -1 -1 82 256;
+#N canvas 487 399 655 285 notes 0;
+#X obj 39 29 inlet;
+#X obj 242 192 sel 0;
+#X msg 242 213 random one;
+#X obj 39 193 outlet;
+#X obj 194 50 loadbang;
+#X msg 194 71 floor 64;
+#X obj 522 192 sel 0;
+#X msg 522 213 random one;
+#X obj 319 193 outlet;
+#X obj 474 50 loadbang;
+#X msg 474 71 floor 64;
+#X obj 319 45 random 2;
+#X obj 319 66 sel 1;
+#X obj 39 45 random 2;
+#X obj 39 66 sel 1;
+#X obj 39 87 cc.12tet/sequence scale;
+#X obj 319 87 cc.12tet/sequence scale;
+#X connect 0 0 11 0;
+#X connect 0 0 13 0;
+#X connect 1 0 2 0;
+#X connect 2 0 15 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 7 0;
+#X connect 7 0 16 0;
+#X connect 9 0 10 0;
+#X connect 10 0 16 0;
+#X connect 11 0 12 0;
+#X connect 12 0 16 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 3 0;
+#X connect 15 1 1 0;
+#X connect 16 0 8 0;
+#X connect 16 1 6 0;
+#X restore 150 162 pd notes;
+#N canvas 0 50 450 300 \$0-scale 0;
+#X msg 111 87 intervals 3 2 2 3 2;
+#X obj 111 65 loadbang;
+#X obj 111 108 cc.12tet scale;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X restore 304 147 pd \$0-scale;
+#N canvas 756 413 350 300 \$0-instruments 0;
+#X obj 37 37 inlet;
+#X obj 37 221 *~;
+#X obj 37 245 outlet~;
+#N canvas 428 227 936 599 vv 0;
+#X obj 156 161 inlet~;
+#X obj 156 250 *~ 0;
+#X obj 156 269 phasor~;
+#X obj 156 288 *~ 4;
+#X obj 156 307 -~ 2;
+#X obj 156 326 abs~;
+#X obj 156 345 -~ 1;
+#X obj 156 364 outlet~;
+#X obj 177 208 samplerate~;
+#X obj 177 229 / 2;
+#X obj 177 187 r \$0-init;
+#X text 279 157 based on one of acriel's random modulation algorithms
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 1 1;
+#X connect 10 0 8 0;
+#X restore 87 78 pd vv;
+#X obj 86 53 noise~;
+#X obj 119 204 vline~;
+#X obj 37 79 t f b;
+#X msg 119 122 1 5 \, 0.25 20 5 \, 0 100 25;
+#X obj 37 58 mtof;
+#X obj 37 153 cc.waves~/dphasor;
+#X obj 37 177 cc.waves~/tsSaw;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 3 0 9 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 9 0;
+#X connect 6 0 10 1;
+#X connect 6 1 7 0;
+#X connect 7 0 5 0;
+#X connect 8 0 6 0;
+#X connect 9 0 10 0;
+#X connect 10 0 1 0;
+#X restore 150 191 pd \$0-instruments;
+#X obj 150 139 metro 200;
+#N canvas 886 473 450 300 \$0-output 0;
+#X obj 122 115 cc.output~;
+#X text 129 99 Volume Control;
+#X obj 121 55 inlet~;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X restore 150 607 pd \$0-output;
+#X obj 210 326 cc.messager~;
+#X msg 210 461 time \$1;
+#X obj 210 258 osc~;
+#X obj 258 279 r start;
+#X obj 150 487 cc.comb~ del 500;
+#X obj 210 279 *~ 250;
+#X obj 210 300 +~ 250;
+#X msg 258 300 on \$1 \, glide 10;
+#X obj 210 233 nbx 4 15 -1e+037 1e+037 0 0 empty lfo LFO 0 -8 0 10
+-257985 -1 -1 0.01 256;
+#X obj 201 96 r tempo;
+#X obj 624 98 nbx 4 15 -1e+037 1e+037 0 0 empty lfo.in empty 0 -8 0
+10 -257985 -1 -1 0.01 256;
+#X obj 624 118 s lfo;
+#X obj 305 209 loadbang;
+#X msg 305 230 \; tempo.in 150 \; lfo.in 0.01;
+#X text 510 147 [cc.messager~] - Message Rate Converter, f 66;
+#X obj 210 437 nbx 4 15 -1e+037 1e+037 0 0 empty empty converted_signal
+48 8 0 10 -257985 -1 -1 278.616 256;
+#X text 510 170 cc.messager~ takes an audio rate signal and converts
+into a series of float messages. The frequency of conversion is determined
+by the interval parameter. Each interval is linearly interpolated between.
+The grain parameter determines the quality of the interpolation. The
+glide parameter slews the incoming signal such that sharp changes are
+more loosely felt., f 66;
+#X text 510 248 This object can be fairly expensive so be careful when
+using multiple copies of it. In order to reduce the amount of CPU usage
+\, consider reducing the how frequently the output value is updated.
+, f 66;
+#X connect 0 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 9 0;
+#X connect 6 0 8 0;
+#X connect 6 0 5 0;
+#X connect 8 0 15 0;
+#X connect 9 0 6 0;
+#X connect 11 0 26 0;
+#X connect 12 0 15 0;
+#X connect 13 0 16 0;
+#X connect 14 0 18 0;
+#X connect 15 0 10 0;
+#X connect 16 0 17 0;
+#X connect 17 0 11 0;
+#X connect 18 0 11 0;
+#X connect 19 0 13 0;
+#X connect 20 0 9 1;
+#X connect 21 0 22 0;
+#X connect 23 0 24 0;
+#X connect 26 0 12 0;
+#X coords 0 709 1 708 85 60 0;

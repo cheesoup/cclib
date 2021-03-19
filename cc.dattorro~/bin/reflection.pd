@@ -1,0 +1,25 @@
+#N canvas 407 438 510 285 10;
+#X obj 54 200 +~;
+#X obj 108 201 -~;
+#X obj 54 36 inlet~;
+#X obj 121 37 inlet~;
+#X obj 54 221 outlet~;
+#X obj 108 222 outlet~;
+#X obj 122 155 delwrite~ \$1.ref \$2;
+#X obj 122 175 delread~ \$1.ref \$2;
+#X obj 340 37 inlet~;
+#X obj 121 73 expr~ cos($v2 * 1.57079632679) * $v1 \; sin($v2 * 1.57079632679)
+* $v1;
+#X obj 341 183 allpass \$1.ap \$2 \$3;
+#X connect 0 0 4 0;
+#X connect 1 0 5 0;
+#X connect 2 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 9 0;
+#X connect 7 0 1 1;
+#X connect 8 0 9 1;
+#X connect 9 0 0 1;
+#X connect 9 0 6 0;
+#X connect 9 1 10 0;
+#X connect 10 0 6 0;
+#X connect 10 0 0 1;

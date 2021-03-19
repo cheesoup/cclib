@@ -1,0 +1,21 @@
+#N canvas 358 223 740 550 10;
+#X obj 483 254 *~ 0.5;
+#X obj 483 275 +~ 0.5;
+#X obj 483 233 clip~ 0 0.999999;
+#X obj 138 296 expr~ ($v1 < $v2) * ($v1 * (0.5 / max($v2 \, 1e-06)))
++ ($v1 >= $v2) * (($v1 - $v2) / (2 - $v2 * 2) + 0.5);
+#X obj 138 349 outlet~;
+#X obj 138 212 inlet~;
+#X obj 483 212 inlet~;
+#X obj 138 328 cos~;
+#X obj 483 170 loadbang;
+#X msg 483 191 1;
+#X connect 0 0 1 0;
+#X connect 1 0 3 1;
+#X connect 2 0 0 0;
+#X connect 3 0 7 0;
+#X connect 5 0 3 0;
+#X connect 6 0 2 0;
+#X connect 7 0 4 0;
+#X connect 8 0 9 0;
+#X connect 9 0 6 0;

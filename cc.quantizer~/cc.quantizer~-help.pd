@@ -1,27 +1,23 @@
-#N struct 1042-cell float x float width float status;
-#N struct 1047-key float status float x float y;
-#N canvas 145 169 1008 709 10;
-#X obj 494 120 s start;
-#X obj 494 100 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 0
-1;
+#N struct 1783-cell float x float width float status;
+#N struct 1836-key float status float root float id float x float y
+;
+#N canvas 266 171 1008 709 10;
 #N canvas 886 473 450 300 \$0-output 0;
 #X obj 122 115 cc.output~;
 #X text 129 99 Volume Control;
 #X obj 121 55 inlet~;
 #X connect 2 0 0 0;
 #X connect 2 0 0 1;
-#X restore 148 566 pd \$0-output;
-#X obj 148 137 nbx 4 15 -1e+037 1e+037 0 0 empty empty frequency(hz)
-0 -8 0 10 -257985 -1 -1 0 256;
-#X obj 148 228 cc.quantizer~;
-#X obj 371 177 cc.scope~;
-#X obj 148 332 nbx 4 15 -1e+037 1e+037 0 0 empty empty current_step
-48 8 0 10 -257985 -1 -1 0 256;
+#X restore 168 576 pd \$0-output;
+#X obj 168 137 nbx 4 15 -1e+037 1e+037 0 0 empty empty frequency(hz)
+0 -8 0 10 -257985 -1 -1 0.2 256;
+#X obj 168 228 cc.quantizer~;
+#X obj 168 332 nbx 4 15 -1e+037 1e+037 0 0 empty empty current_step
+48 8 0 10 -257985 -1 -1 12 256;
 #N canvas 756 413 450 300 \$0-instrument 0;
 #X obj 37 37 inlet;
-#X obj 37 149 cc.dphasor~;
-#X obj 37 197 *~;
-#X obj 37 221 outlet~;
+#X obj 37 217 *~;
+#X obj 37 241 outlet~;
 #N canvas 428 227 936 599 vv 0;
 #X obj 156 161 inlet~;
 #X obj 156 250 *~ 0;
@@ -46,90 +42,117 @@
 #X connect 8 0 9 0;
 #X connect 9 0 1 1;
 #X connect 10 0 8 0;
-#X restore 67 121 pd vv;
-#X obj 66 96 noise~;
-#X obj 119 180 vline~;
+#X restore 86 123 pd vv;
+#X obj 85 98 noise~;
+#X obj 149 200 vline~;
 #X obj 37 58 t f b;
-#X msg 119 118 1 5 \, 0.25 20 5 \, 0 100 25;
-#X obj 37 173 cc.rTri~ 0.5;
-#X connect 0 0 7 0;
-#X connect 1 0 9 0;
-#X connect 2 0 3 0;
-#X connect 4 0 1 1;
-#X connect 5 0 4 0;
-#X connect 6 0 2 1;
-#X connect 7 0 1 0;
-#X connect 7 1 8 0;
-#X connect 8 0 6 0;
-#X connect 9 0 2 0;
-#X restore 148 545 pd \$0-instrument;
-#X obj 371 329 cc.scope~;
-#X text 369 285 Phase between the current and next step, f 17;
+#X msg 149 118 1 5 \, 0.25 20 5 \, 0 100 25;
+#X obj 37 173 cc.waves~/rtri 0.5;
+#X obj 37 149 cc.waves~/dphasor;
+#X connect 0 0 6 0;
+#X connect 1 0 2 0;
+#X connect 3 0 9 1;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 6 0 9 0;
+#X connect 6 1 7 0;
+#X connect 7 0 5 0;
+#X connect 8 0 1 0;
+#X connect 9 0 8 0;
+#X restore 168 555 pd \$0-instrument;
 #N canvas 0 50 450 300 \$0-scale 0;
 #X msg 111 87 intervals 3 2 2 3 2;
-#X obj 111 108 cc.scale test_scale;
 #X obj 111 65 loadbang;
-#X connect 0 0 1 0;
-#X connect 2 0 0 0;
-#X restore 258 228 pd \$0-scale;
-#X obj 148 101 r start;
-#X text 370 161 Orginal signal;
-#X text 492 149 cc.quantizer~ - lowpass based envelope generator;
+#X obj 111 108 cc.12tet test_scale;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X restore 278 228 pd \$0-scale;
+#X obj 267 100 r start;
 #N canvas 0 50 450 300 \$0-waves 0;
-#X obj 121 125 phasor~;
-#X obj 142 73 inlet;
-#X obj 142 94 == 0;
-#X obj 39 73 inlet;
-#X obj 39 200 outlet~;
-#X obj 39 125 osc~;
-#X obj 39 94 / 4;
-#X obj 121 146 *~ 1;
-#X obj 39 146 *~ 0;
+#X obj 121 105 phasor~;
+#X obj 142 33 inlet;
+#X obj 39 33 inlet;
+#X obj 39 240 outlet~;
+#X obj 39 105 osc~;
+#X obj 39 196 *~ 1;
+#X obj 121 168 abs~;
+#X obj 121 126 *~ 2;
+#X obj 121 147 -~ 1;
+#X obj 39 126 *~ 0.5;
+#X obj 39 147 +~ 0.5;
+#X obj 221 126 phasor~;
+#X obj 242 77 == 2;
+#X obj 142 74 == 1;
+#X obj 121 196 *~ 0;
+#X obj 221 196 *~ 0;
+#X obj 60 74 == 0;
+#X obj 221 105 * 2;
 #X connect 0 0 7 0;
-#X connect 1 0 2 0;
-#X connect 1 0 8 1;
-#X connect 2 0 7 1;
-#X connect 3 0 0 0;
-#X connect 3 0 6 0;
-#X connect 5 0 8 0;
-#X connect 6 0 5 0;
-#X connect 7 0 4 0;
-#X connect 8 0 4 0;
-#X restore 148 162 pd \$0-waves;
-#X obj 211 138 tgl 15 0 empty empty switch_waveforms 17 7 0 10 -262144
--1 -1 1 1;
-#X obj 148 401 cc.scale/sequence test_scale;
-#X text 153 503 Use quantization steps to playback sequence steps,
-f 35;
-#X text 492 282 In this example \, we use cc.quantizer to control a
-sequence of notes with an audio signal. By using a non-linear waveforms
-\, we can produce somewhat interesting based on the waveform's shape.
-, f 60;
-#X msg 161 205 multiply 8 \, modulo 8;
-#X obj 161 184 loadbang;
-#X obj 161 354 loadbang;
-#X msg 161 375 floor 48 \, range 36;
-#X text 492 171 cc.quantizer~ maps an audio rate signal to an arbitrary
+#X connect 1 0 13 0;
+#X connect 1 0 12 0;
+#X connect 1 0 16 0;
+#X connect 2 0 4 0;
+#X connect 2 0 0 0;
+#X connect 2 0 17 0;
+#X connect 4 0 9 0;
+#X connect 5 0 3 0;
+#X connect 6 0 14 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 0;
+#X connect 9 0 10 0;
+#X connect 10 0 5 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 1;
+#X connect 13 0 14 1;
+#X connect 14 0 3 0;
+#X connect 15 0 3 0;
+#X connect 16 0 5 1;
+#X connect 17 0 11 0;
+#X restore 168 162 pd \$0-waves;
+#X text 203 503 Use quantization steps to playback sequence steps,
+f 28;
+#X obj 181 184 loadbang;
+#X obj 181 354 loadbang;
+#X msg 181 375 floor 48 \, range 36;
+#X obj 168 401 cc.12tet/sequence test_scale;
+#X obj 512 118 s start;
+#X obj 512 98 tgl 15 0 empty empty empty 20 7 0 10 -257985 -1 -1 1
+1;
+#X obj 168 506 mtof;
+#X obj 568 98 hradio 15 1 0 3 empty empty wave 0 -8 0 10 -257985 -1
+-1 1;
+#X obj 267 146 r wave;
+#X obj 568 118 s wave;
+#X obj 267 121 * 0.2;
+#X msg 181 205 multiply 16 \, modulo 16;
+#X text 510 170 cc.quantizer~ maps an audio rate signal to an arbitrary
 number of steps. The abstraction wraps the incoming signal to a value
 of between 0 and 1 This allows any incoming signal to always be within
 quantization range. Multiply controls the scale of the incoming signal.
 Increasing value has the same effect as increasing the frequency of
 the incoming signal. The modulo parameter controls the amount of steps
 to map the incoming signal to. Offset shifts the phase of the outgoing
-signal relative to the incoming signal.;
-#X connect 1 0 0 0;
-#X connect 3 0 14 0;
-#X connect 4 0 6 0;
-#X connect 4 1 8 0;
-#X connect 6 0 16 0;
+signal relative to the incoming signal., f 66;
+#X text 510 281 In this example \, we use cc.quantizer to control a
+sequence of notes with an audio signal. By using a non-linear waveforms
+\, we can produce somewhat interesting based on the waveform's shape.
+, f 66;
+#X text 510 147 [cc.quantizer~] - automatic bus channel generator,
+f 66;
+#X connect 1 0 7 0;
+#X connect 2 0 3 0;
+#X connect 3 0 12 0;
+#X connect 4 0 0 0;
+#X connect 6 0 19 0;
 #X connect 7 0 2 0;
-#X connect 11 0 3 0;
-#X connect 14 0 4 0;
-#X connect 14 0 5 0;
-#X connect 15 0 14 1;
-#X connect 16 0 7 0;
-#X connect 19 0 4 0;
-#X connect 20 0 19 0;
-#X connect 21 0 22 0;
-#X connect 22 0 16 0;
+#X connect 9 0 20 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 15 0;
+#X connect 14 0 13 0;
+#X connect 15 0 4 0;
+#X connect 16 0 18 0;
+#X connect 17 0 7 1;
+#X connect 19 0 1 0;
+#X connect 20 0 2 0;
 #X coords 0 709 1 708 85 60 0;
